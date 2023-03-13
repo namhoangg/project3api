@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project3</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <h2>Danh mục sản phẩm</h2>
+    <div id="productCategory" class="product-Category"></div>
+    <h2>Danh sách sản phẩm</h2>
+    <div class="product_find">Tìm kiếm
+        <input type="text" id="productFind" class="product_find_input" placeholder="Vui lòng nhập đúng chính xác tên sản phẩm!">
+        <button id="productFindButton" class="product_find_button">Tìm kiếm</button>
+    </div>
+    <div class="product_sort">Sắp xếp
+        <select id="productSort" class="product_sort_select">
+            <option value="0">Mặc định</option>
+            <option value="1">Giá tăng dần</option>
+            <option value="2">Giá giảm dần</option>
+            
+        </select>
+    <div id="productList" class="product-list"></div>
+    <script src="./script.js"></script>
+</body>
+</html>
