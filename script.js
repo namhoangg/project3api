@@ -81,18 +81,28 @@ function renderProduct(product_title){
 }
 let productFind=document.getElementById("productFindButton");
 productFind.addEventListener("click",function(){
+      let productList=document.getElementById("productList");
     let productFindInput=document.getElementById("productFind");
-        getAPI("http://localhost:3000/products")
+        getAPI(`http://localhost:3000/products?q=${productFindInput.value}`)
         .then((data)=>{
-           data.find((item)=>{
-                if(item.title==productFindInput.value){
-                     renderProduct(item.title);
-                }
-           });
+             let productHTML=data.map((item)=>{
+            return `<div class="item">
+                <div class="item_image">
+                <img src="${item.thumbnail}" alt="">
+                </div>
+                <div class="item_desc">
+                <div class="item_name">${item.title}</div>
+                <div class="item_price" style="color:red";>Giá ${item.price}$</div>
+                <div class="item_stock">Còn lại: ${item.stock}</div>
+                </div>
+                </div>`
+        }).join("");
+        productList.innerHTML=productHTML;
         })
 });
 
 function ascSort(category){
+    let productList=document.getElementById("productList");
     getAPI("http://localhost:3000/products?_sort=price&_order=asc")
     .then((data)=>{
         console.log(data);
@@ -115,6 +125,7 @@ function ascSort(category){
     })
 }
 function desSort(category){
+      let productList=document.getElementById("productList");
     getAPI("http://localhost:3000/products?_sort=price&_order=desc")
     .then((data)=>{
         console.log(data);
