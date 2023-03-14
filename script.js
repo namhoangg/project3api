@@ -9,6 +9,7 @@ function getAPI(api){
     return result;
 }
 let selectedCategoryId="all";
+let productFindInput="";
 renderProductList();
 //category apt http://localhost:3000/category
 //product apt http://localhost:3000/products
@@ -82,8 +83,9 @@ function renderProduct(product_title){
 let productFind=document.getElementById("productFindButton");
 productFind.addEventListener("click",function(){
       let productList=document.getElementById("productList");
-    let productFindInput=document.getElementById("productFind");
-        getAPI(`http://localhost:3000/products?q=${productFindInput.value}`)
+    productFindInput=document.getElementById("productFind").value;
+    console.log(productFindInput);
+        getAPI(`http://localhost:3000/products?q=${productFindInput}`)
         .then((data)=>{
              let productHTML=data.map((item)=>{
             return `<div class="item">
@@ -103,12 +105,14 @@ productFind.addEventListener("click",function(){
 
 function ascSort(category){
     let productList=document.getElementById("productList");
-    getAPI("http://localhost:3000/products?_sort=price&_order=asc")
+    getAPI(`http://localhost:3000/products?_sort=price&_order=asc&q=${productFindInput}`)
     .then((data)=>{
         console.log(data);
        data= data.filter((item)=>{
            return item.category==category||category=="all";
         })
+         console.log(data);
+       
         let productHTML=data.map((item)=>{
             return `<div class="item">
                 <div class="item_image">
@@ -126,12 +130,15 @@ function ascSort(category){
 }
 function desSort(category){
       let productList=document.getElementById("productList");
-    getAPI("http://localhost:3000/products?_sort=price&_order=desc")
+    getAPI(`http://localhost:3000/products?_sort=price&_order=desc&q=${productFindInput}`)
     .then((data)=>{
+        console.log(data);
+        console.log(productFindInput);
         console.log(data);
        data= data.filter((item)=>{
            return item.category==category||category=="all";
         })
+          console.log(data);
        let productHTML=data.map((item)=>{
             return `<div class="item">
                 <div class="item_image">
